@@ -8,6 +8,15 @@
 * Sort
 * Reorder by Drag and Drop
 
+### Preview of the app
+|App layout with Shared Preferences |Context Menu  | Sorting |
+|:-----------------:|:--------------------:|:---------------------:|
+| <img src="https://raw.githubusercontent.com/Iltwats/CDN/master/Android/Ecom/2.png" height="400"/>|<img src="https://raw.githubusercontent.com/Iltwats/CDN/master/Android/Ecom/3.png" height="400"/>|<img src="https://raw.githubusercontent.com/Iltwats/CDN/master/Android/Ecom/4.png" height="400"/>|
+
+| Searching | Add and Edit Products  | 
+|:-----------------:|:--------------------:|
+| <img src="https://raw.githubusercontent.com/Iltwats/CDN/master/Android/Ecom/1.png" height="400"/>|<img src="https://raw.githubusercontent.com/Iltwats/CDN/master/Android/Ecom/5.png" height="400"/>|
+
 
 #### App Link
 * Download from [here](https://github.com/Iltwats/ECommerce/releases/download/v.1/Ecommerce.apk)
