@@ -19,4 +19,4 @@
 
 
 #### App Link
-* Download from [here](https://github.com/Iltwats/ECommerce/releases/download/v.1/Ecommerce.apk)
+* Download from [here](https://github.com/Iltwats/ECommerce/releases/download/v.1/ECom.apk)
