@@ -8,14 +8,21 @@
         android:icon="@drawable/ic_search"
         android:iconTint="#FFFFFF"
         app:showAsAction="always"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+        app:actionViewClass="androidx.appcompat.widget.SearchView" />
+
+    <item
+        android:id="@+id/drag_products"
+        android:icon="@drawable/ic_drag"
+        android:iconTint="#FFFFFF"
+        android:title="Enable Drag"
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/sort_products"
         android:title="Sort Products"
         android:icon="@drawable/ic_sort"
         android:iconTint="#FFFFFF"
-        app:showAsAction="always"/>
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/add_product"

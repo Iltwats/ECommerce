@@ -4,6 +4,8 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,10 +39,12 @@ public class MainActivity extends AppCompatActivity {
     List<Product> list;
     ProductsAdapter adapter;
     private SearchView searchView;
+    public boolean isDragModeOn = false;
 
     SharedPreferences sharedPreferences;
-    String sharedPreferencesFile = "com.example.android.ECommerce";
+    String sharedPreferencesFile = ".ECommerce";
     private Gson gson;
+    private ItemTouchHelper itemTouchHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,16 +62,13 @@ public class MainActivity extends AppCompatActivity {
     private void setupProductsList() {
         list = loadData();
         list.add(new Product("Apple", 50, 5));
-        list.add(new Product("Orange", 60, 7));
-        list.add(new Product("Kiwi", 70, 9));
         adapter = new ProductsAdapter(MainActivity.this, list);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         binding.recyclerView.addItemDecoration(
                 new DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         );
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(binding.recyclerView);
+        dragAndDropProducts();
     }
 
     @Override
@@ -84,15 +85,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public boolean onQueryTextChange(String query) {
-//                Log.i("LOG CHANGE", "Change : " +  query);
                 adapter.filterList(query);
                 return true;
-
             }
 
             @Override
             public boolean onQueryTextSubmit(String query) {
-//                Log.i("LOG SUBMIT", "Submit : " +  query);
                 return false;
             }
         });
@@ -110,8 +108,28 @@ public class MainActivity extends AppCompatActivity {
             case R.id.sort_products:
                 sortProductsByName();
                 return true;
+            case R.id.drag_products:
+                toggleDragAndDropButton(item);
+                isDragModeOn = !isDragModeOn;
+                return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void toggleDragAndDropButton(MenuItem item) {
+        Drawable icon = item.getIcon();
+        if (isDragModeOn) {
+            icon.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
+        } else {
+            icon.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        }
+        item.setIcon(icon);
+
+        if (isDragModeOn) {
+            itemTouchHelper.attachToRecyclerView(null);
+        } else {
+            itemTouchHelper.attachToRecyclerView(binding.recyclerView);
+        }
     }
 
     private void sortProductsByName() {
@@ -197,8 +215,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String json = gson.toJson(adapter.productList);
         editor.putString("list", json);
@@ -207,7 +225,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Product> loadData() {
         String json = sharedPreferences.getString("list", null);
-        Type type = new TypeToken<ArrayList<Product>>() {}.getType();
+        Type type = new TypeToken<ArrayList<Product>>() {
+        }.getType();
         List<Product> list = gson.fromJson(json, type);
         if (list == null) {
             return new ArrayList<>();
@@ -215,20 +234,24 @@ public class MainActivity extends AppCompatActivity {
         return (ArrayList<Product>) list;
     }
 
-    ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END, 0) {
-        @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-            int fromPosition = viewHolder.getAdapterPosition();
-            int toPosition = target.getAdapterPosition();
-            Collections.swap(adapter.productList, fromPosition, toPosition);
-            binding.recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
-            return false;
-        }
+    private void dragAndDropProducts() {
+        ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN | ItemTouchHelper.START | ItemTouchHelper.END, 0) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                int fromPosition = viewHolder.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+                Collections.swap(adapter.productList, fromPosition, toPosition);
+                binding.recyclerView.getAdapter().notifyItemMoved(fromPosition, toPosition);
+                return false;
+            }
 
-        @Override
-        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
-        }
-    };
+            }
+        };
+        itemTouchHelper = new ItemTouchHelper(simpleCallback);
+
+    }
 
 }

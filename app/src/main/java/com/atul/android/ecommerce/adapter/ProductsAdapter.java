@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.atul.android.ecommerce.MainActivity;
 import com.atul.android.ecommerce.R;
 import com.atul.android.ecommerce.databinding.VarientItemLayoutBinding;
@@ -23,7 +22,8 @@ import java.util.List;
 public class ProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     Context context;
-    public List<Product> productList, allProductsList;
+    public List<Product> productList;
+    public List<Product> allProductsList;
     public int lastSelectedItemPosition;
 
     public ProductsAdapter(Context context, List<Product> productList) {
@@ -85,7 +85,10 @@ public class ProductsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 if (!(context instanceof MainActivity)) {
                     return;
                 }
-                ((MainActivity) context).getMenuInflater().inflate(R.menu.menu_context, menu);
+                MainActivity activity = ((MainActivity) context);
+                if (!activity.isDragModeOn) {
+                    activity.getMenuInflater().inflate(R.menu.menu_context, menu);
+                }
             }
         });
     }
