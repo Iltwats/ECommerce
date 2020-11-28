@@ -1,17 +1,21 @@
 package com.atul.android.ecommerce.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Product {
+public class Product implements Serializable {
 
     public static final byte WEIGHT_BASED = 0, VARIENTS_BASED = 1;
 
     public String name;
-    public byte type;
+    public int type;
     public int pricePerKg;
     public float minQty;
     public List<Varient> varientsList;
+
+    public Product() {
+    }
 
     public Product(String name, int pricePerKg, float minQty) {
         type = WEIGHT_BASED;
@@ -19,6 +23,7 @@ public class Product {
         this.pricePerKg = pricePerKg;
         this.minQty = minQty;
     }
+
 
     public Product(String name) {
         type = VARIENTS_BASED;
