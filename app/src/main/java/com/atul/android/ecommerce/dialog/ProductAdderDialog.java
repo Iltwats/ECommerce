@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
-
 import com.atul.android.ecommerce.R;
 import com.atul.android.ecommerce.databinding.ProductAdderDialogBinding;
 import com.atul.android.ecommerce.model.Product;
@@ -33,6 +32,7 @@ public class ProductAdderDialog {
         );
 
         new AlertDialog.Builder(context)
+                .setCancelable(false)
                 .setTitle(productType == PRODUCT_ADD ? "Add Product" : "Edit Product")
                 .setView(b.getRoot())
                 .setPositiveButton(productType == PRODUCT_ADD ? "ADD" : "EDIT", new DialogInterface.OnClickListener() {
