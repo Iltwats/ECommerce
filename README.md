@@ -7,6 +7,7 @@
 * Search Product
 * Sort
 * Reorder by Drag and Drop
+* Save Product to Cloud Firestore
 
 ### Preview of the app
 |App layout with Shared Preferences |Context Menu  | Sorting |
