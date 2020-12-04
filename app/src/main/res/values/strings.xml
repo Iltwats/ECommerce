@@ -1,4 +1,9 @@
 <resources>
-    <string name="app_name">EComs</string>
+    <string name="app_name">Admin Ecom</string>
     <string name="add_product">Add Product</string>
+    <string name="channel_name">notification</string>
+    <string name="channel_description">General Notification</string>
+    <string name="edit_products">Edit Products</string>
+    <string name="orders">Orders</string>
+    <string name="notify_users">Notify Users</string>
 </resources>

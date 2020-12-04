@@ -29,6 +29,7 @@ import com.atul.android.ecommerce.model.Product;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -58,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        FirebaseMessaging.getInstance().subscribeToTopic(Constants.ADMIN);
         sharedPreferences = getSharedPreferences(sharedPreferencesFile, MODE_PRIVATE);
         gson = new Gson();
         setup();
