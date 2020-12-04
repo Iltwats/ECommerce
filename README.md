@@ -20,4 +20,4 @@
 
 
 #### App Link
-* Download from [here](https://github.com/Iltwats/ECommerce/releases/download/v1.2/Ecommerce.v1.2.apk)
+* Download from [here](https://github.com/Iltwats/ECommerce/releases/download/v.3/AdminEcom.apk)
