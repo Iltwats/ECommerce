@@ -1,5 +1,6 @@
 # ECommerce
 **A admin app to create new product list, edit it, and remove it.**
+For User version of the [app](https://github.com/Iltwats/UserEcom).
 
 ### Features Included
 * Add Product
